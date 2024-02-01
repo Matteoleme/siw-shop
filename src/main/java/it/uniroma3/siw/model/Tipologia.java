@@ -20,7 +20,7 @@ public class Tipologia {
 	@NotNull
 	private String nome;
 	
-	@OneToMany(mappedBy = "Tipologia")
+	@OneToMany(mappedBy = "tipologia")
 	private List<Prodotto> prodotti;
 
 	public Long getId() {

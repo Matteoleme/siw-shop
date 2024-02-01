@@ -3,12 +3,14 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 
+@Entity
 public class Produttore {
 	
 	@Id
@@ -22,7 +24,7 @@ public class Produttore {
 	
 	private String indirizzoSede;
 	
-	@OneToMany
+	@OneToMany (mappedBy = "produttore")
 	private List<Prodotto> prodotti;
 
 	public Long getId() {
