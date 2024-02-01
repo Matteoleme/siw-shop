@@ -28,7 +28,7 @@ public class Prodotto {
 	private Tipologia tipologia;
 	
 	@ManyToOne
-	private Marca marca;
+	private Produttore produttore;
 
 	public Long getId() {
 		return id;
@@ -70,12 +70,12 @@ public class Prodotto {
 		this.tipologia = tipologia;
 	}
 
-	public Marca getMarca() {
-		return marca;
+	public Produttore getProduttore() {
+		return produttore;
 	}
 
-	public void setMarca(Marca marca) {
-		this.marca = marca;
+	public void setProduttore(Produttore produttore) {
+		this.produttore = produttore;
 	}
 
 	@Override
