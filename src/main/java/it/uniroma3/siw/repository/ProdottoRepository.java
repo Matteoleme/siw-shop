@@ -18,5 +18,7 @@ public interface ProdottoRepository extends CrudRepository<Prodotto, Long> {
 	
 	public List<Prodotto> findByTipologia(Tipologia tipologia);
 	
+	public List<Prodotto> findByNomeContaining(String keyWord);
+	
 	//public List<Prodotto> findByPrezzoIsLessThanEqualsList(Float prezzo);
 }
