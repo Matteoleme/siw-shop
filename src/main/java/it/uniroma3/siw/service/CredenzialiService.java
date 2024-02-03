@@ -3,6 +3,7 @@ package it.uniroma3.siw.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +16,10 @@ public class CredenzialiService {
 
 	@Autowired
 	protected PasswordEncoder passwordEncoder;
-	
+
 	@Autowired
 	protected CredenzialiRepository credenzialiRepository;
-	
+
 	@Transactional
 	public Credenziali getCredenziali(Long id) {
 		Optional<Credenziali> result = this.credenzialiRepository.findById(id);
@@ -30,11 +31,21 @@ public class CredenzialiService {
 		Optional<Credenziali> result = this.credenzialiRepository.findByUsername(username);
 		return result.orElse(null);
 	}
-		
-    @Transactional
-    public Credenziali saveCredentials(Credenziali credenziali) {
-        credenziali.setRuolo(Credenziali.DEFAULT_ROLE);
-        credenziali.setPassword(this.passwordEncoder.encode(credenziali.getPassword()));
-        return this.credenzialiRepository.save(credenziali);
-    }
+
+	@Transactional
+	public Credenziali getCredenziali(UserDetails user) {
+		if(user != null) {
+			return this.credenzialiRepository.findByUsername(user.getUsername()).orElse(null);
+		}
+		else {
+			return null;
+		}
+	}
+
+	@Transactional
+	public Credenziali saveCredentials(Credenziali credenziali) {
+		credenziali.setRuolo(Credenziali.DEFAULT_ROLE);
+		credenziali.setPassword(this.passwordEncoder.encode(credenziali.getPassword()));
+		return this.credenzialiRepository.save(credenziali);
+	}
 }
