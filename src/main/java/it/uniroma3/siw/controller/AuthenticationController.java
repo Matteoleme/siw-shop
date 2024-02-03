@@ -27,16 +27,19 @@ public class AuthenticationController {
 	public String showRegisterForm(Model model) {
 		model.addAttribute("utente", new Utente());
 		model.addAttribute("credenziali", new Credenziali());
+		model.addAttribute("title", "Registrazione");
 		return "formRegistraUtente.html";
 	}
 
 	@GetMapping(value = "/login")
 	public String showLoginForm(Model model) {
+		model.addAttribute("title", "Login page");
 		return "login.html";
 	}
 
 	@GetMapping(value = "/")
 	public String index(Model model) {
+		model.addAttribute("title", "Home");
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
 			return "index.html";
@@ -44,7 +47,7 @@ public class AuthenticationController {
 			UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
 					.getPrincipal();
 			Credenziali credenziali = credenzialiService.getCredenziali(userDetails.getUsername());
-			model.addAttribute("utente", credenziali.getUtente());
+			model.addAttribute("credenziali", credenziali);
 			if (credenziali.getRuolo().equals(Credenziali.ADMIN_ROLE)) {
 				return "admin/index.html";
 			}
@@ -54,10 +57,10 @@ public class AuthenticationController {
 
 	@GetMapping(value = "/success")
 	public String defaultAfterLogin(Model model) {
-
+		model.addAttribute("title", "Home");
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credenziali credenziali = credenzialiService.getCredenziali(userDetails.getUsername());
-		model.addAttribute("utente", credenziali.getUtente());
+		model.addAttribute("credenziali", credenziali);
 		if (credenziali.getRuolo().equals(Credenziali.ADMIN_ROLE)) {
 			return "admin/index.html";
 		}
@@ -73,10 +76,20 @@ public class AuthenticationController {
 		// Credentials nel DB
 		if (!userBindingResult.hasErrors() && !credentialsBindingResult.hasErrors()) {
 			credenziali.setUtente(utente);
+			utente.setCredenziali(credenziali);
 			credenzialiService.saveCredentials(credenziali);
 			model.addAttribute("utente", utente);
+			model.addAttribute("credenziali", credenziali);
+			model.addAttribute("title", "Riepilogo Utente");
 			return "registrazioneCompletata.html";
 		}
+		model.addAttribute("title", "Registrazione");
 		return "formRegistraUtente.html";
+	}
+
+	@GetMapping("/blank")
+	public String blankPage(Model model) {
+		model.addAttribute("title", "Blank Page");
+		return "blank.html";
 	}
 }
