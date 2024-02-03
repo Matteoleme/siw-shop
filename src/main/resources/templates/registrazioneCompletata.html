@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base.html :: headerfiles(title=${title})}"> </head>
+<header th:replace="~{fragments/base.html :: intestazione}"></header>
+
+
+<div th:replace="~{fragments/base.html :: breadcrumb(title=#{title})}"> </div>
+
+<!-- SECTION -->
+<div class="section">
+	<!-- container -->
+	<div class="user-container">
+		<!-- row -->
+		<div class="row">
+			<h1>Riepilogo Utente</h1>
+
+			<div class="user-info">
+				<div class="info-item">
+					<span class="info-label">Username:</span>
+					<span th:text="${utente.credenziali.username}" class="info-value">john_doe</span>
+				</div>
+
+				<div class="info-item">
+					<span class="info-label">Nome:</span>
+					<span th:text="${utente.nome}" class="info-value">John</span>
+				</div>
+
+				<div class="info-item">
+					<span class="info-label">Cognome:</span>
+					<span th:text="${utente.cognome}" class="info-value">Doe</span>
+				</div>
+
+				<div class="info-item">
+					<span class="info-label">Email:</span>
+					<span th:text="${utente.email}" class="info-value">john.doe@example.com</span>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<!-- /row -->
+</div>
+<!-- /container -->
+</div>
+<!-- /SECTION -->
+
+
+<footer th:replace="~{fragments/base.html :: footer}"></footer>
