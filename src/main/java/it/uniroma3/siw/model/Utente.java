@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -18,6 +19,9 @@ public class Utente {
 	private String cognome;
 	@Email
 	private String email;
+	
+	@OneToOne (mappedBy = "utente")
+	private Credenziali credenziali;
 	
 	public Long getId() {
 		return id;
@@ -42,6 +46,12 @@ public class Utente {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public Credenziali getCredenziali() {
+		return credenziali;
+	}
+	public void setCredenziali(Credenziali credenziali) {
+		this.credenziali = credenziali;
 	}
 	
 }
