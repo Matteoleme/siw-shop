@@ -118,7 +118,7 @@ ol {
 	transition: 0.2s all;
 }
 
-.secondary-btn{
+.secondary-btn {
 	display: inline-block;
 	padding: 12px 30px;
 	background-color: #2B2D42;
@@ -142,9 +142,9 @@ ol {
 	Logins
 \*----------------------------*/
 
-.registrazione{
-margin-left: 25%;
-margin-right: 25%;
+.registrazione {
+	margin-left: 25%;
+	margin-right: 25%;
 }
 
 .login {
@@ -470,6 +470,47 @@ textarea.input {
 #breadcrumb .breadcrumb-tree li a:hover {
 	color: #D10024;
 }
+
+/*----------------------------*\
+	User info
+\*----------------------------*/
+
+.user-container{
+	max-width: 800px;
+	margin: 35px auto;
+	background-color: #ffffff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.user-container h1 {
+	text-align: center;
+	color: #D10024;
+}
+
+.user-info {
+	text-align: left;
+	margin-top: 20px;
+	margin-left: 10px;
+	
+}
+
+.info-item {
+	margin-bottom: 15px;
+}
+
+.info-label {
+	font-weight: bold;
+	color: #555555;
+}
+
+.info-value {
+	margin-left: 10px;
+	color: #333333;
+}
+
+
 
 /*=========================================================
 	02 -> HEADER
