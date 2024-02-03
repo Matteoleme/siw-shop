@@ -5,14 +5,16 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Utente {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+	@NotBlank
 	private String nome;
+	@NotBlank
 	private String cognome;
 	@Email
 	private String email;
