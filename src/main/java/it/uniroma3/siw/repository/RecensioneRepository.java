@@ -16,6 +16,8 @@ public interface RecensioneRepository extends CrudRepository<Recensione, Long> {
 	public boolean existsByProdottoAndUtente(Prodotto prodotto, Utente utente);
 	
 	public List<Recensione> findByProdotto(Prodotto prodotto);
+	
+	public List<Recensione> findByUtente(Utente utente);
 
 	@Query("SELECT AVG(r.valutazione) FROM Recensione r WHERE r.prodotto.id = :idProdotto")
 	Optional<Double> findMediaRecensioniByProdottoId(@Param("idProdotto") Long idProdotto);

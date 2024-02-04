@@ -475,7 +475,7 @@ textarea.input {
 	User info
 \*----------------------------*/
 
-.user-container{
+.user-container {
 	max-width: 800px;
 	margin: 35px auto;
 	background-color: #ffffff;
@@ -493,7 +493,7 @@ textarea.input {
 	text-align: left;
 	margin-top: 20px;
 	margin-left: 10px;
-	
+
 }
 
 .info-item {
@@ -1871,6 +1871,12 @@ textarea.input {
 
 .reviews .review-body {
 	min-height: 70px;
+}
+
+.reviews .review-body button {
+	border: none;
+	border-radius: 25px;
+	font-size: 10px
 }
 
 .reviews .review-heading .name {
