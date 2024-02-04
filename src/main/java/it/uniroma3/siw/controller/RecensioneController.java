@@ -44,7 +44,9 @@ public class RecensioneController {
 			if (this.recensioneRepository.existsByProdottoAndUtente(prodotto, utente)) {
 				// controllo se questo utente ha già inserito una recensione per questo prodotto
 				// e lo mando a modificare la recensione
-				return "recensione.html";
+				model.addAttribute("recensione", this.recensioneRepository.findByProdottoAndUtente(prodotto, utente).get());
+
+				return "modificaRecensione.html";
 			} else {
 				recensione.setProdotto(prodotto);
 				recensione.setUtente(utente);
@@ -62,13 +64,45 @@ public class RecensioneController {
 
 		return "prodotto.html";
 	}
-	
+
 	@GetMapping("/mostraRecensioni")
 	public String mostraRecensioni(Model model) {
 		// mi faccio dare le info sull utente e poi stampo quelle dell utente
 		Credenziali credenziali = credenzialiService.getCredenziali(globalController.getUser());
 		Utente utente = credenziali.getUtente();
 		model.addAttribute("credenziali", credenziali);
+		model.addAttribute("title", "Recensioni utente");
+		model.addAttribute("recensioni", this.recensioneRepository.findByUtente(utente));
+		return "recensioni.html";
+	}
+
+	@GetMapping("/modificaRecensione/{id}")
+	public String formModificaRecensione(@PathVariable("id") Long id, Model model) {
+		// mi faccio dare le info sull utente e poi stampo quelle dell utente
+		Credenziali credenziali = credenzialiService.getCredenziali(globalController.getUser());
+		model.addAttribute("credenziali", credenziali);
+		model.addAttribute("title", "Modifica recensione");
+		model.addAttribute("recensione", this.recensioneRepository.findById(id).get());
+		return "modificaRecensione.html";
+	}
+
+	@PostMapping("/recensioneModificata/{id}")
+	public String modificaRecensione(@PathVariable("id") Long id,
+			@ModelAttribute("recensione") Recensione nuovaRecensione, Model model) {
+		Credenziali credenziali = credenzialiService.getCredenziali(globalController.getUser());
+		Utente utente = credenziali.getUtente();
+		Recensione recensione = this.recensioneRepository.findById(id).get();
+		model.addAttribute("credenziali", credenziali);
+		if (nuovaRecensione.getValutazione() > 0 && nuovaRecensione.getValutazione() <= 5) {
+			recensione.setDescrizione(nuovaRecensione.getDescrizione());
+			recensione.setValutazione(nuovaRecensione.getValutazione());
+			recensione.setTimestamp(LocalDate.now());
+			this.recensioneRepository.save(recensione);
+		} else {
+			model.addAttribute("title", "Errore modifica recensione");
+			model.addAttribute("recensione", recensione.getId());
+			return "modificaRecensione.html";
+		}
 		model.addAttribute("title", "Recensioni utente");
 		model.addAttribute("recensioni", this.recensioneRepository.findByUtente(utente));
 		return "recensioni.html";

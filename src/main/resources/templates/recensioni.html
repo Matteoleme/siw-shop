@@ -39,7 +39,7 @@
 							</div>
 							<div class="review-body">
 								<p th:text="${recensione.descrizione}">Bel prodotto carino simpatico fa il suo</p>
-									<button class="secondary-btn" th:href="'/modificaRecensione/' + ${recensione.id}">Modifica</button>
+									<a th:href="'/modificaRecensione/' + ${recensione.id}"> <button class="secondary-btn">Modifica</button></a>
 							</div>
 						</li>
 					</ul>

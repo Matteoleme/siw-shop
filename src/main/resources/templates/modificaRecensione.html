@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base.html :: headerfiles(title=${title})}"> </head>
+<header th:replace="~{fragments/base.html :: intestazione}"></header>
+
+
+<div th:replace="~{fragments/base.html :: breadcrumb(title=${title})}"> </div>
+
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<!-- Review Form -->
+			<div class="col-md-5">
+				<div id="review-form">
+					<form class="review-form" th:action="@{'/recensioneModificata/' + ${recensione.id}}" method="POST" th:object="${recensione}">
+						<textarea class="input" placeholder="Your Review" required
+							th:field="${recensione.descrizione}"></textarea>
+						<div class="input-rating">
+							<span>Valutazione: </span>
+							<div class="stars">
+								<input id="star5" name="rating" value="5" type="radio"
+									th:checked="${recensione.valutazione == 5}"
+									th:field="${recensione.valutazione}"><label for="star5"></label>
+								<input id="star4" name="rating" value="4" type="radio"
+									th:checked="${recensione.valutazione == 4}"
+									th:field="${recensione.valutazione}"><label for="star4"></label>
+								<input id="star3" name="rating" value="3" type="radio"
+									th:checked="${recensione.valutazione == 3}"
+									th:field="${recensione.valutazione}"><label for="star3"></label>
+								<input id="star2" name="rating" value="2" type="radio"
+									th:checked="${recensione.valutazione == 2}"
+									th:field="${recensione.valutazione}"><label for="star2"></label>
+								<input id="star1" name="rating" value="1" type="radio"
+									th:checked="${recensione.valutazione == 1}"
+									th:field="${recensione.valutazione}"><label for="star1"></label>
+							</div>
+						</div>
+						<button class="secondary-btn">Modifica</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<footer th:replace="~{fragments/base.html :: footer}"></footer>

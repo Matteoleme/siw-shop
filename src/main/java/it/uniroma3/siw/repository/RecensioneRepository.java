@@ -14,6 +14,7 @@ import it.uniroma3.siw.model.Utente;
 public interface RecensioneRepository extends CrudRepository<Recensione, Long> {
 
 	public boolean existsByProdottoAndUtente(Prodotto prodotto, Utente utente);
+	public Optional<Recensione> findByProdottoAndUtente(Prodotto prodotto, Utente utente);
 	
 	public List<Recensione> findByProdotto(Prodotto prodotto);
 	
