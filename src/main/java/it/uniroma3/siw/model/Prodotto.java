@@ -1,5 +1,6 @@
 package it.uniroma3.siw.model;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -7,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
@@ -30,6 +32,9 @@ public class Prodotto {
 	@ManyToOne
 	private Produttore produttore;
 
+	@OneToMany (mappedBy = "prodotto")
+	private List<Recensione> recensioni;
+	
 	public Long getId() {
 		return id;
 	}
@@ -76,6 +81,14 @@ public class Prodotto {
 
 	public void setProduttore(Produttore produttore) {
 		this.produttore = produttore;
+	}
+
+	public List<Recensione> getRecensioni() {
+		return recensioni;
+	}
+
+	public void setRecensioni(List<Recensione> recensioni) {
+		this.recensioni = recensioni;
 	}
 
 	@Override
