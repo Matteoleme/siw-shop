@@ -10,9 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import it.uniroma3.siw.model.Prodotto;
 import it.uniroma3.siw.model.Produttore;
+import it.uniroma3.siw.model.Recensione;
 import it.uniroma3.siw.model.Tipologia;
 import it.uniroma3.siw.repository.ProdottoRepository;
 import it.uniroma3.siw.repository.ProduttoreRepository;
+import it.uniroma3.siw.repository.RecensioneRepository;
 import it.uniroma3.siw.repository.TipologiaRepository;
 import it.uniroma3.siw.service.CredenzialiService;
 
@@ -25,6 +27,8 @@ public class ProdottoController {
 	TipologiaRepository tipologiaRepository;
 	@Autowired
 	ProduttoreRepository produttoreRepository;
+	@Autowired
+	RecensioneRepository recensioneRepository;
 	@Autowired
 	GlobalController globalController;
 	@Autowired
@@ -80,7 +84,11 @@ public class ProdottoController {
 	public String mostraProdotto(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("credenziali", credenzialiService.getCredenziali(globalController.getUser()));
 		model.addAttribute("title", "Prodotto");
-		model.addAttribute("prodotto", this.prodottoRepository.findById(id).get());
+		Prodotto prodotto = this.prodottoRepository.findById(id).get();
+		model.addAttribute("prodotto", prodotto);
+		model.addAttribute("recensioni", this.recensioneRepository.findByProdotto(prodotto));
+		model.addAttribute("media_recensioni", this.recensioneRepository.findMediaRecensioniByProdottoId(id));
+		model.addAttribute("nuova_recensione", new Recensione());
 		return "prodotto.html";
 	}
 
