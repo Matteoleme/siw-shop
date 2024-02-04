@@ -75,4 +75,14 @@ public class ProdottoController {
 		model.addAttribute("title", "Prodotti");
 		return "prodotti.html";
 	}
+	
+	@GetMapping("/prodotto/{id}")
+	public String mostraProdotto(@PathVariable("id") Long id, Model model) {
+		model.addAttribute("credenziali", credenzialiService.getCredenziali(globalController.getUser()));
+		model.addAttribute("title", "Prodotto");
+		model.addAttribute("prodotto", this.prodottoRepository.findById(id).get());
+		return "prodotto.html";
+	}
+
+	
 }

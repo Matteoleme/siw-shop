@@ -120,7 +120,7 @@
 							</div>
 							<div class="product-body">
 								<p class="product-category" th:text="${prodotto.tipologia.nome}"> </p>
-								<h3 class="product-name"><a th:text="${prodotto.nome}" href="#"></a></h3>
+								<h3 class="product-name"><a th:text="${prodotto.nome}" th:href="'prodotto/' + ${prodotto.id}"></a></h3>
 								<h4 class="product-price" th:text="${prodotto.prezzo}"> <del
 										class="product-old-price">$990.00</del></h4>
 								<!--<div class="product-rating">
