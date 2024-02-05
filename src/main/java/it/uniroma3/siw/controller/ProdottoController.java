@@ -84,6 +84,7 @@ public class ProdottoController {
 	public String mostraProdotto(@PathVariable("id") Long id, Model model) {
 		model.addAttribute("credenziali", credenzialiService.getCredenziali(globalController.getUser()));
 		model.addAttribute("title", "Prodotto");
+		model.addAttribute("tipologie", this.tipologiaRepository.findAll());
 		Prodotto prodotto = this.prodottoRepository.findById(id).get();
 		model.addAttribute("prodotto", prodotto);
 		model.addAttribute("recensioni", this.recensioneRepository.findByProdotto(prodotto));

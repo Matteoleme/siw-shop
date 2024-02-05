@@ -17,6 +17,7 @@ import it.uniroma3.siw.model.Recensione;
 import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.repository.ProdottoRepository;
 import it.uniroma3.siw.repository.RecensioneRepository;
+import it.uniroma3.siw.repository.TipologiaRepository;
 import it.uniroma3.siw.service.CredenzialiService;
 import jakarta.validation.Valid;
 
@@ -27,6 +28,8 @@ public class RecensioneController {
 	ProdottoRepository prodottoRepository;
 	@Autowired
 	RecensioneRepository recensioneRepository;
+	@Autowired
+	TipologiaRepository tipologiaRepository;
 	@Autowired
 	GlobalController globalController;
 	@Autowired
@@ -39,6 +42,7 @@ public class RecensioneController {
 		Utente utente = credenziali.getUtente();
 		model.addAttribute("credenziali", credenziali);
 		model.addAttribute("title", "Prodotto");
+		model.addAttribute("tipologie", this.tipologiaRepository.findAll());
 		Prodotto prodotto = this.prodottoRepository.findById(idProdotto).get();
 		if (!bindingResult.hasErrors()) {
 			if (this.recensioneRepository.existsByProdottoAndUtente(prodotto, utente)) {
@@ -72,6 +76,7 @@ public class RecensioneController {
 		Utente utente = credenziali.getUtente();
 		model.addAttribute("credenziali", credenziali);
 		model.addAttribute("title", "Recensioni utente");
+		model.addAttribute("tipologie", this.tipologiaRepository.findAll());
 		model.addAttribute("recensioni", this.recensioneRepository.findByUtente(utente));
 		return "recensioni.html";
 	}
@@ -83,6 +88,7 @@ public class RecensioneController {
 		Credenziali credenziali = credenzialiService.getCredenziali(globalController.getUser());
 		model.addAttribute("credenziali", credenziali);
 		model.addAttribute("title", "Modifica recensione");
+		model.addAttribute("tipologie", this.tipologiaRepository.findAll());
 		model.addAttribute("recensione", this.recensioneRepository.findById(id).get());
 		return "modificaRecensione.html";
 	}
@@ -94,6 +100,7 @@ public class RecensioneController {
 		Utente utente = credenziali.getUtente();
 		Recensione recensione = this.recensioneRepository.findById(id).get();
 		model.addAttribute("credenziali", credenziali);
+		model.addAttribute("tipologie", this.tipologiaRepository.findAll());
 		if (nuovaRecensione.getValutazione() > 0 && nuovaRecensione.getValutazione() <= 5) {
 			recensione.setDescrizione(nuovaRecensione.getDescrizione());
 			recensione.setValutazione(nuovaRecensione.getValutazione());
@@ -116,6 +123,7 @@ public class RecensioneController {
 		Credenziali credenziali = credenzialiService.getCredenziali(globalController.getUser());
 		model.addAttribute("credenziali", credenziali);
 		model.addAttribute("title", "Recensioni Utenti");
+		model.addAttribute("tipologie", this.tipologiaRepository.findAll());
 		model.addAttribute("recensioni", this.recensioneRepository.findAll());
 		return "admin/recensioni.html";
 	}
@@ -125,6 +133,7 @@ public class RecensioneController {
 		Credenziali credenziali = credenzialiService.getCredenziali(globalController.getUser());
 		model.addAttribute("credenziali", credenziali);
 		model.addAttribute("title", "Recensioni Utenti");
+		model.addAttribute("tipologie", this.tipologiaRepository.findAll());
 		Recensione recensione = this.recensioneRepository.findById(id).get();
 		this.recensioneRepository.delete(recensione);
 		model.addAttribute("recensioni", this.recensioneRepository.findAll());

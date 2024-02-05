@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import java.util.Objects;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,7 +15,7 @@ import jakarta.validation.constraints.Positive;
 
 @Entity
 public class Prodotto {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -107,7 +108,5 @@ public class Prodotto {
 		Prodotto other = (Prodotto) obj;
 		return Objects.equals(nome, other.nome);
 	}
-	
-	
-	
+		
 }

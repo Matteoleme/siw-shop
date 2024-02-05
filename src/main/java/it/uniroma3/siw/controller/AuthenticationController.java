@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import it.uniroma3.siw.model.Credenziali;
 import it.uniroma3.siw.model.Utente;
+import it.uniroma3.siw.repository.ProduttoreRepository;
+import it.uniroma3.siw.repository.TipologiaRepository;
 import it.uniroma3.siw.service.CredenzialiService;
 import it.uniroma3.siw.service.UtenteService;
 import jakarta.validation.Valid;
@@ -22,6 +24,10 @@ import jakarta.validation.Valid;
 public class AuthenticationController {
 	@Autowired
 	private CredenzialiService credenzialiService;
+	@Autowired
+	ProduttoreRepository produttoreRepository;
+	@Autowired
+	TipologiaRepository tipologiaRepository;
 
 	@GetMapping(value = "/registrati")
 	public String showRegisterForm(Model model) {
@@ -40,6 +46,8 @@ public class AuthenticationController {
 	@GetMapping(value = "/")
 	public String index(Model model) {
 		model.addAttribute("title", "Home");
+		model.addAttribute("produttori", this.produttoreRepository.findAll());
+		model.addAttribute("tipologie", this.tipologiaRepository.findAll());
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication instanceof AnonymousAuthenticationToken) {
 			return "index.html";
@@ -58,6 +66,8 @@ public class AuthenticationController {
 	@GetMapping(value = "/success")
 	public String defaultAfterLogin(Model model) {
 		model.addAttribute("title", "Home");
+		model.addAttribute("produttori", this.produttoreRepository.findAll());
+		model.addAttribute("tipologie", this.tipologiaRepository.findAll());
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Credenziali credenziali = credenzialiService.getCredenziali(userDetails.getUsername());
 		model.addAttribute("credenziali", credenziali);
@@ -90,6 +100,8 @@ public class AuthenticationController {
 	@GetMapping("/blank")
 	public String blankPage(Model model) {
 		model.addAttribute("title", "Blank Page");
+		model.addAttribute("produttori", this.produttoreRepository.findAll());
+		model.addAttribute("tipologie", this.tipologiaRepository.findAll());
 		return "blank.html";
 	}
 }
