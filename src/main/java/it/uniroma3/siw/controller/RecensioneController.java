@@ -76,6 +76,7 @@ public class RecensioneController {
 		return "recensioni.html";
 	}
 
+	
 	@GetMapping("/modificaRecensione/{id}")
 	public String formModificaRecensione(@PathVariable("id") Long id, Model model) {
 		// mi faccio dare le info sull utente e poi stampo quelle dell utente
@@ -106,5 +107,27 @@ public class RecensioneController {
 		model.addAttribute("title", "Recensioni utente");
 		model.addAttribute("recensioni", this.recensioneRepository.findByUtente(utente));
 		return "recensioni.html";
+	}
+	
+	/* ADMIN */
+	@GetMapping("/admin/mostraRecensioni")
+	public String adminMostraRecensioni(Model model) {
+		// mi faccio dare le info sull utente e poi stampo quelle dell utente
+		Credenziali credenziali = credenzialiService.getCredenziali(globalController.getUser());
+		model.addAttribute("credenziali", credenziali);
+		model.addAttribute("title", "Recensioni Utenti");
+		model.addAttribute("recensioni", this.recensioneRepository.findAll());
+		return "admin/recensioni.html";
+	}
+	
+	@PostMapping("/admin/eliminaRecensione/{id}")
+	public String eliminaRecensione(@PathVariable("id") Long id, Model model) {
+		Credenziali credenziali = credenzialiService.getCredenziali(globalController.getUser());
+		model.addAttribute("credenziali", credenziali);
+		model.addAttribute("title", "Recensioni Utenti");
+		Recensione recensione = this.recensioneRepository.findById(id).get();
+		this.recensioneRepository.delete(recensione);
+		model.addAttribute("recensioni", this.recensioneRepository.findAll());
+		return "admin/recensioni.html";
 	}
 }

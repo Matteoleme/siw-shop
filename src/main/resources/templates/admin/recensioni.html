@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base.html :: headerfiles(title=${title})}"> </head>
+<header th:replace="~{fragments/base.html :: intestazione}"></header>
+
+
+<div th:replace="~{fragments/base.html :: breadcrumb(title=${title})}"> </div>
+
+<div class="section">
+	<!-- container -->
+	<div class="container">
+		<!-- row -->
+		<div class="row">
+			<div class="col-md-10">
+				<div class="section-title">
+					<h4 class="title" th:text="'Utente ' + ${credenziali.username}"> </h4>
+				</div>
+				<div id="reviews">
+					<p th:if="${recensioni.isEmpty()}"> Non sono presenti recensioni nel sistema</p>
+					<ul class="reviews" th:unless="${recensioni.isEmpty()}">
+						<li th:each="recensione : ${recensioni}">
+							<div class="review-heading">
+								<h5 class="name" th:text="${recensione.utente.credenziali.username}">Username</h5>
+								<a th:href="'/prodotto/' + ${recensione.prodotto.id}">
+									<p class="date" th:text="${recensione.prodotto.nome}"> Nome prodotto </p>
+								</a>
+								<div
+									th:replace="~{fragments/base.html :: stelle(classe='review-rating', valutazione=${recensione.valutazione})}">
+								</div>
+
+							</div>
+							<div class="review-body">
+								<p th:text="${recensione.descrizione}">Bel prodotto carino simpatico fa il suo</p>
+								<form method="post" th:action="@{'/admin/eliminaRecensione/' + ${recensione.id}}">
+									<button type="submit" class="primary-btn">Elimina</button>
+								</form>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /row -->
+
+<footer th:replace="~{fragments/base.html :: footer}"></footer>
