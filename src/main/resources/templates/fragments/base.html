@@ -203,6 +203,20 @@
 		<!-- /container -->
 	</div>
 	<!-- /SECTION -->
+	<th:block th:fragment="stelle(classe, valutazione)">
+		<div th:class="${classe}">
+			<i th:if="${valutazione >= 1}" class="fa fa-star"></i>
+			<i th:unless="${valutazione >= 1}" class="fa fa-star-o"></i>
+			<i th:if="${valutazione >= 2}" class="fa fa-star"></i>
+			<i th:unless="${valutazione >= 2}" class="fa fa-star-o"></i>
+			<i th:if="${valutazione >= 3}" class="fa fa-star"></i>
+			<i th:unless="${valutazione >= 3}" class="fa fa-star-o"></i>
+			<i th:if="${valutazione >= 4}" class="fa fa-star"></i>
+			<i th:unless="${valutazione >= 4}" class="fa fa-star-o"></i>
+			<i th:if="${valutazione >= 5}" class="fa fa-star"></i>
+			<i th:unless="${valutazione >= 5}" class="fa fa-star-o"></i>
+		</div>
+	</th:block>
 
 
 	<!-- FOOTER -->
@@ -311,7 +325,7 @@
 		<script src="/js/nouislider.min.js"></script>
 		<script src="/js/jquery.zoom.min.js"></script>
 		<script src="/js/main.js"></script>
-		
+
 		<!-- /FOOTER -->
 	</footer>
 

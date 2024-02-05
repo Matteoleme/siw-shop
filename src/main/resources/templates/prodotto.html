@@ -25,27 +25,25 @@
 			<div class="col-md-5">
 				<div class="product-details">
 					<h2 th:text="${prodotto.nome}" class="product-name">Nome prodotto</h2>
-					<div>
-						<div class="product-rating">
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
+					<div th:if="${media_recensioni.isPresent()}">
+						<div
+							th:replace="~{fragments/base.html :: stelle(classe='product-rating', valutazione=${media_recensioni.get()})}">
 						</div>
 						<a class="review-link" th:text="${recensioni.size()} + ' Recensioni'">10 Recensioni </a>
+					</div>
+					<div th:unless="${media_recensioni.isPresent()}">
+						<div th:replace="~{fragments/base.html :: stelle(classe='product-rating', valutazione=0)}">
+						</div>
+						<a class="review-link" th:text="'0 Recensioni'">0 Recensioni </a>
 					</div>
 					<div>
 						<h3 th:text="${prodotto.prezzo} + ' €'" class="product-price">$980.00 <del
 								class="product-old-price">$990.00</del></h3>
-						<span class="product-available">In Stock</span>
+						<!--<span class="product-available">In Stock</span>-->
 					</div>
-					<p th:text="${prodotto.descrizione}">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
-						do eiusmod tempor incididunt ut
-						labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-						laboris nisi ut aliquip ex ea commodo consequat.</p>
 
-					<div class="add-to-cart">
+
+					<!--<div class="add-to-cart">
 						<div class="qty-label">
 							Qty
 							<div class="input-number">
@@ -55,13 +53,14 @@
 							</div>
 						</div>
 						<button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-					</div>
+					</div>-->
 
 
 					<ul class="product-links">
 						<li>Tipologia:</li>
 						<li><a th:text="${prodotto.tipologia.nome}"
 								th:href="'/prodotti/tipologia/' + ${prodotto.tipologia.id}">Headphones</a></li>
+						<br>
 						<li>Produttore:</li>
 						<li><a th:text="${prodotto.produttore.nome}"
 								th:href="'/prodotti/produttore/' + ${prodotto.produttore.id}">Headphones</a></li>
@@ -76,61 +75,34 @@
 				<div id="product-tab">
 					<!-- product tab nav -->
 					<ul class="tab-nav">
-						<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-						<li><a data-toggle="tab" href="#tab2">Details</a></li>
-						<li><a data-toggle="tab" href="#tab3"
+						<li class="active"><a data-toggle="tab" href="#tab1"
 								th:text="'Recensioni (' + ${recensioni.size()} + ')'">Reviews (3)</a></li>
+						<li><a data-toggle="tab" href="#tab2">Descrizione prodotto</a></li>
 					</ul>
 					<!-- /product tab nav -->
 
 					<!-- product tab content -->
 					<div class="tab-content">
+
 						<!-- tab1  -->
 						<div id="tab1" class="tab-pane fade in active">
-							<div class="row">
-								<div class="col-md-12">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-										culpa qui officia deserunt mollit anim id est laborum.</p>
-								</div>
-							</div>
-						</div>
-						<!-- /tab1  -->
-
-						<!-- tab2  -->
-						<div id="tab2" class="tab-pane fade in">
-							<div class="row">
-								<div class="col-md-12">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
-										incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-										nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-										Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-										culpa qui officia deserunt mollit anim id est laborum.</p>
-								</div>
-							</div>
-						</div>
-						<!-- /tab2  -->
-
-						<!-- tab3  -->
-						<div id="tab3" class="tab-pane fade in">
 							<div class="row">
 								<!-- Rating -->
 								<div class="col-md-3">
 									<div id="rating">
-										<div class="rating-avg">
-											<span th:text="${media_recensioni}">4.5</span>
-											<div class="rating-stars">
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star"></i>
-												<i class="fa fa-star-o"></i>
+										<div class="rating-avg" th:if="${media_recensioni.isPresent()}">
+											<span th:text="${media_recensioni.get()}">4.5</span>
+											<div
+												th:replace="~{fragments/base.html :: stelle(classe='rating-stars', valutazione=${media_recensioni.get()})}">
 											</div>
 										</div>
+										<div class="rating-avg" th:unless="${media_recensioni.isPresent()}">
+											<span th:text="0">0</span>
+											<div
+												th:replace="~{fragments/base.html :: stelle(classe='rating-stars', valutazione=0)}">
+											</div>
+										</div>
+										<!--
 										<ul class="rating">
 											<li>
 												<div class="rating-stars">
@@ -197,7 +169,7 @@
 												</div>
 												<span class="sum">0</span>
 											</li>
-										</ul>
+										</ul>-->
 									</div>
 								</div>
 								<!-- /Rating -->
@@ -213,14 +185,9 @@
 													<h5 class="name"
 														th:text="${recensione.utente.nome} + ' ' + ${recensione.utente.cognome}">
 														John Doe</h5>
-													<p class="date" th:text="${recensione.timestamp}">27 DEC 2018, 8:0
-														PM</p>
-													<div class="review-rating">
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star"></i>
-														<i class="fa fa-star-o empty"></i>
+													<p class="date" th:text="${recensione.timestamp}">2024-02-05</p>
+													<div
+														th:replace="~{fragments/base.html :: stelle(classe='review-rating', valutazione=${recensione.valutazione})}">
 													</div>
 												</div>
 												<div class="review-body" th:text="${recensione.descrizione}">
@@ -233,9 +200,10 @@
 								<!-- /Reviews -->
 
 								<!-- Review Form -->
-								<div class="col-md-3">
+								<div class="col-md-3" th:if="${credenziali}">
 									<div id="review-form">
-										<form class="review-form" th:action="@{'/nuovaRecensione/' + ${prodotto.id}}" method="POST">
+										<form class="review-form" th:action="@{'/nuovaRecensione/' + ${prodotto.id}}"
+											method="POST">
 											<textarea class="input" placeholder="Your Review" required
 												th:field="${nuova_recensione.descrizione}"></textarea>
 											<div class="input-rating">
@@ -243,19 +211,24 @@
 												<div class="stars">
 													<input id="star5" name="rating" value="5" type="radio"
 														th:checked="${nuova_recensione.valutazione == 5}"
-														th:field="${nuova_recensione.valutazione}"><label for="star5"></label>
+														th:field="${nuova_recensione.valutazione}"><label
+														for="star5"></label>
 													<input id="star4" name="rating" value="4" type="radio"
 														th:checked="${nuova_recensione.valutazione == 4}"
-														th:field="${nuova_recensione.valutazione}"><label for="star4"></label>
+														th:field="${nuova_recensione.valutazione}"><label
+														for="star4"></label>
 													<input id="star3" name="rating" value="3" type="radio"
 														th:checked="${nuova_recensione.valutazione == 3}"
-														th:field="${nuova_recensione.valutazione}"><label for="star3"></label>
+														th:field="${nuova_recensione.valutazione}"><label
+														for="star3"></label>
 													<input id="star2" name="rating" value="2" type="radio"
 														th:checked="${nuova_recensione.valutazione == 2}"
-														th:field="${nuova_recensione.valutazione}"><label for="star2"></label>
+														th:field="${nuova_recensione.valutazione}"><label
+														for="star2"></label>
 													<input id="star1" name="rating" value="1" type="radio"
 														th:checked="${nuova_recensione.valutazione == 1}"
-														th:field="${nuova_recensione.valutazione}"><label for="star1"></label>
+														th:field="${nuova_recensione.valutazione}"><label
+														for="star1"></label>
 												</div>
 											</div>
 											<button class="primary-btn">Submit</button>
@@ -265,7 +238,22 @@
 								<!-- /Review Form -->
 							</div>
 						</div>
-						<!-- /tab3  -->
+						<!-- /tab1  -->
+						<!-- tab2 -->
+						<div id="tab2" class="tab-pane fade in">
+							<div class="row">
+								<div class="col-md-12">
+									<p th:text="${prodotto.descrizione}">Lorem ipsum dolor sit amet, consectetur
+										adipisicing elit, sed
+										do eiusmod tempor incididunt ut
+										labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+										exercitation ullamco
+										laboris nisi ut aliquip ex ea commodo consequat.</p>
+								</div>
+							</div>
+						</div>
+						<!-- /tab2  -->
+
 					</div>
 					<!-- /product tab content  -->
 				</div>

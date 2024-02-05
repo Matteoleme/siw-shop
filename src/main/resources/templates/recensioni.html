@@ -17,8 +17,7 @@
 					<h4 class="title" th:text="'Utente ' + ${credenziali.username}"> </h4>
 				</div>
 				<div id="reviews">
-					<p th:if="${recensioni.isEmpty()}"> Non sono presenti recensioni per questo
-						prodotto!</p>
+					<p th:if="${recensioni.isEmpty()}"> Non sono presenti recensioni!</p>
 					<ul class="reviews" th:unless="${recensioni.isEmpty()}">
 						<li th:each="recensione : ${recensioni}">
 							<div class="review-heading">
@@ -28,18 +27,16 @@
 
 								<p class="date" th:text="${recensione.timestamp}">27 DEC 2018, 8:0
 									PM</p>
-								<div class="review-rating">
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star"></i>
-									<i class="fa fa-star-o empty"></i>
+								<div
+									th:replace="~{fragments/base.html :: stelle(classe='review-rating', valutazione=${recensione.valutazione})}">
 								</div>
+
 
 							</div>
 							<div class="review-body">
 								<p th:text="${recensione.descrizione}">Bel prodotto carino simpatico fa il suo</p>
-									<a th:href="'/modificaRecensione/' + ${recensione.id}"> <button class="secondary-btn">Modifica</button></a>
+								<a th:href="'/modificaRecensione/' + ${recensione.id}"> <button
+										class="secondary-btn">Modifica</button></a>
 							</div>
 						</li>
 					</ul>
