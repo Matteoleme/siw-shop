@@ -24,6 +24,8 @@ public class Prodotto {
 	
 	private String descrizione;
 	
+	private String dettagli;
+	
 	@Positive
 	private Float prezzo;
 
@@ -58,6 +60,14 @@ public class Prodotto {
 
 	public void setDescrizione(String descrizione) {
 		this.descrizione = descrizione;
+	}
+
+	public String getDettagli() {
+		return dettagli;
+	}
+
+	public void setDettagli(String dettagli) {
+		this.dettagli = dettagli;
 	}
 
 	public Float getPrezzo() {
