@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,7 +28,7 @@ public class Recensione {
 
 	private LocalDate timestamp;
 
-	@ManyToOne
+	@ManyToOne (cascade = CascadeType.REMOVE)
 	private Utente utente;
 
 	@ManyToOne

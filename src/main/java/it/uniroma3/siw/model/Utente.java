@@ -3,6 +3,7 @@ package it.uniroma3.siw.model;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -54,21 +55,21 @@ public class Utente {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Credenziali getCredenziali() {
-		return credenziali;
-	}
-	public void setCredenziali(Credenziali credenziali) {
-		this.credenziali = credenziali;
-	}
 	public List<Recensione> getRecensioni() {
 		return recensioni;
 	}
 	public void setRecensioni(List<Recensione> recensioni) {
 		this.recensioni = recensioni;
 	}
+	public Credenziali getCredenziali() {
+		return credenziali;
+	}
+	public void setCredenziali(Credenziali credenziali) {
+		this.credenziali = credenziali;
+	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(cognome, credenziali, email, nome);
+		return Objects.hash(cognome, email, nome);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -79,10 +80,9 @@ public class Utente {
 		if (getClass() != obj.getClass())
 			return false;
 		Utente other = (Utente) obj;
-		return Objects.equals(cognome, other.cognome) && Objects.equals(credenziali, other.credenziali)
-				&& Objects.equals(email, other.email) && Objects.equals(nome, other.nome);
+		return Objects.equals(cognome, other.cognome) && Objects.equals(email, other.email)
+				&& Objects.equals(nome, other.nome);
 	}
-	
 	
 	
 }
