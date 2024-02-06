@@ -17,7 +17,6 @@ import it.uniroma3.siw.model.Utente;
 import it.uniroma3.siw.repository.ProduttoreRepository;
 import it.uniroma3.siw.repository.TipologiaRepository;
 import it.uniroma3.siw.service.CredenzialiService;
-import it.uniroma3.siw.service.UtenteService;
 import jakarta.validation.Valid;
 
 @Controller
@@ -28,6 +27,9 @@ public class AuthenticationController {
 	ProduttoreRepository produttoreRepository;
 	@Autowired
 	TipologiaRepository tipologiaRepository;
+	
+	@Autowired
+	GlobalController globalController;
 
 	@GetMapping(value = "/registrati")
 	public String showRegisterForm(Model model) {
@@ -91,10 +93,19 @@ public class AuthenticationController {
 			model.addAttribute("utente", utente);
 			model.addAttribute("credenziali", credenziali);
 			model.addAttribute("title", "Riepilogo Utente");
-			return "registrazioneCompletata.html";
+			return "utente.html";
 		}
 		model.addAttribute("title", "Registrazione");
 		return "formRegistraUtente.html";
+	}
+	
+	@GetMapping("/account")
+	public String getAccount(Model model) {
+		Credenziali credenziali = credenzialiService.getCredenziali(globalController.getUser());
+		model.addAttribute("credenziali", credenziali);
+		model.addAttribute("utente", credenziali.getUtente());
+		model.addAttribute("title", "Riepilogo Utente");
+		return "utente.html";
 	}
 
 	@GetMapping("/blank")
