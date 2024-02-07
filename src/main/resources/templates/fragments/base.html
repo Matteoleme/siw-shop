@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head th:fragment="headerfiles(title)">
@@ -28,6 +28,8 @@
 
 	<!-- Custom stlylesheet -->
 	<link type="text/css" rel="stylesheet" href="/css/style.css" />
+	
+	<link rel="icon" type="image" href="/favicon.ico">
 
 	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -53,10 +55,10 @@
 				</ul>
 				<ul class="header-links pull-right">
 					<li><a href="/"><i class="fa fa-home"></i> Home </a></li>
-					<li th:if="${credenziali}"><a href="/logout" th:text="'logout'"><i
-								class="fa fa-user-o"></i> logout </a></li>
-					<li th:if="${credenziali}"><a href="/account" th:text="${credenziali.username}"><i
-								class="fa fa-user-o"></i> Mario Rossi </a></li>
+					<li th:if="${credenziali}"><i class="fa fa-sign-out"></i><a href="/logout" th:text="'logout'"><i class="fa fa-user-o"></i> logout
+						</a></li>
+					<li th:if="${credenziali}"><i class="fa fa-user-o"></i><a href="/account"
+							th:text="${credenziali.username}"> Mario Rossi </a></li>
 					<li th:unless="${credenziali}"><a href="/login"><i class="fa fa-user-o"></i> Login </a></li>
 				</ul>
 			</div>
@@ -73,7 +75,7 @@
 					<div class="col-md-3">
 						<div class="header-logo">
 							<a href="/" class="logo">
-								<img src="/img/logo1.png" alt="">
+								<img src="/img/logo-min.png" alt="">
 							</a>
 						</div>
 					</div>
@@ -165,7 +167,7 @@
 					<div class="col-md-3 col-xs-6">
 						<div class="footer">
 							<h3 class="footer-title">About Us</h3>
-							<p> Piccola descrizione sito </p>
+							<p>Un piccolo sistema informativo per gestire le recensioni di alcuni prodotti da parte degli utenti </p>
 							<ul class="footer-links">
 								<li><a href="#"><i class="fa fa-phone"></i> +39-123-456-7890</a></li>
 								<li><a href="#"><i class="fa fa-envelope-o"></i> mat.mastranza</a></li>
@@ -196,7 +198,6 @@
 								<li><a href="#">About Us</a></li>
 								<li><a href="#">Contact Us</a></li>
 								<li><a href="#">Privacy Policy</a></li>
-								<li><a href="#">Orders and Returns</a></li>
 								<li><a href="#">Terms & Conditions</a></li>
 							</ul>
 						</div>
@@ -206,10 +207,9 @@
 						<div class="footer">
 							<h3 class="footer-title">Service</h3>
 							<ul class="footer-links">
-								<li><a href="#">My Account</a></li>
-								<li><a href="#">View Cart</a></li>
-								<li><a href="#">Wishlist</a></li>
-								<li><a href="#">Track My Order</a></li>
+								<li><a href="/account">My Account</a></li>
+								<li><a href="/tuttiProdotti">Prodotti</a></li>
+								<li><a href="/mostraRecensioni">Le tue recensioni</a></li>
 								<li><a href="#">Help</a></li>
 							</ul>
 						</div>
