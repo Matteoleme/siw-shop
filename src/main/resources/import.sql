@@ -5,7 +5,7 @@
 -- Dumped from database version 16.0
 -- Dumped by pg_dump version 16.0
 
--- Started on 2024-02-08 14:48:28
+-- Started on 2024-02-08 16:48:15
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,11 +24,11 @@ SET row_security = off;
 -- Data for Name: utente; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.utente (id, cognome, email, nome, credenziali_id) VALUES (352, 'Grandi', 'manu@live.com', 'Emanuele', NULL);
-INSERT INTO public.utente (id, cognome, email, nome, credenziali_id) VALUES (353, 'Mastranza', 'matteo@email.com', 'Matteo', NULL);
-INSERT INTO public.utente (id, cognome, email, nome, credenziali_id) VALUES (354, 'Pera', 'fede@email.com', 'Federica', NULL);
-INSERT INTO public.utente (id, cognome, email, nome, credenziali_id) VALUES (355, 'Verdi', 'gigios@email.com', 'Luigi', NULL);
-INSERT INTO public.utente (id, cognome, email, nome, credenziali_id) VALUES (402, 'Lala', 'sam@email.it', 'sam', NULL);
+INSERT INTO public.utente (id, cognome, email, nome, credenziali_id) VALUES (2, 'Grandi', 'manu@live.com', 'Emanuele', NULL);
+INSERT INTO public.utente (id, cognome, email, nome, credenziali_id) VALUES (1, 'Mastranza', 'matteo@email.com', 'Matteo', NULL);
+INSERT INTO public.utente (id, cognome, email, nome, credenziali_id) VALUES (3, 'Pera', 'fede@email.com', 'Federica', NULL);
+INSERT INTO public.utente (id, cognome, email, nome, credenziali_id) VALUES (4, 'Verdi', 'gigios@email.com', 'Luigi', NULL);
+INSERT INTO public.utente (id, cognome, email, nome, credenziali_id) VALUES (5, 'Lala', 'sam@email.it', 'sam', NULL);
 
 
 --
@@ -37,11 +37,11 @@ INSERT INTO public.utente (id, cognome, email, nome, credenziali_id) VALUES (402
 -- Data for Name: credenziali; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.credenziali (id, password, ruolo, username, utente_id) VALUES (352, '$2a$10$yOVfECZv3KvJKSL1A557ROc/y/IVORsPtY68q3xJOvxIA.8cAXpJG', 'DEFAULT', 'emanuelson11', 352);
-INSERT INTO public.credenziali (id, password, ruolo, username, utente_id) VALUES (354, '$2a$10$LyXQr5Z3u9VKMHrJkbyR7uhcEAf1hMBjwuIx8r7PxOyClyQUbnO/e', 'DEFAULT', 'feds', 354);
-INSERT INTO public.credenziali (id, password, ruolo, username, utente_id) VALUES (355, '$2a$10$0UUL5MazsboVNIM6g3uyvOitEnC4.sFwmfJeYx4yXgHd7NkzOuEtS', 'DEFAULT', 'gigi', 355);
-INSERT INTO public.credenziali (id, password, ruolo, username, utente_id) VALUES (402, '$2a$10$CIaltHO7N8wp/yx2DwAHcujF80K67Qo1lPOfdXrGddKi44/cHGnSu', 'DEFAULT', 'sam', 402);
-INSERT INTO public.credenziali (id, password, ruolo, username, utente_id) VALUES (353, '$2a$10$MKrYDhmQS1YEjqgkJnOvWeDPiqGOH.KZ0BvtN5xWeHGx6RBLO2oiK', 'ADMIN', 'matteo', 353);
+INSERT INTO public.credenziali (id, password, ruolo, username, utente_id) VALUES (2, '$2a$10$yOVfECZv3KvJKSL1A557ROc/y/IVORsPtY68q3xJOvxIA.8cAXpJG', 'DEFAULT', 'emanuelson11', 2);
+INSERT INTO public.credenziali (id, password, ruolo, username, utente_id) VALUES (3, '$2a$10$LyXQr5Z3u9VKMHrJkbyR7uhcEAf1hMBjwuIx8r7PxOyClyQUbnO/e', 'DEFAULT', 'feds', 3);
+INSERT INTO public.credenziali (id, password, ruolo, username, utente_id) VALUES (4, '$2a$10$0UUL5MazsboVNIM6g3uyvOitEnC4.sFwmfJeYx4yXgHd7NkzOuEtS', 'DEFAULT', 'gigi', 4);
+INSERT INTO public.credenziali (id, password, ruolo, username, utente_id) VALUES (5, '$2a$10$CIaltHO7N8wp/yx2DwAHcujF80K67Qo1lPOfdXrGddKi44/cHGnSu', 'DEFAULT', 'sam', 5);
+INSERT INTO public.credenziali (id, password, ruolo, username, utente_id) VALUES (1, '$2a$10$MKrYDhmQS1YEjqgkJnOvWeDPiqGOH.KZ0BvtN5xWeHGx6RBLO2oiK', 'ADMIN', 'matteo', 1);
 
 
 --
@@ -89,9 +89,6 @@ INSERT INTO public.prodotto (id, descrizione, nome, prezzo, produttore_id, tipol
 -- Data for Name: recensione; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.recensione (id, descrizione, "timestamp", valutazione, prodotto_id, utente_id) VALUES (302, 'veramente bello', '2024-02-06', 5, 3, 402);
-INSERT INTO public.recensione (id, descrizione, "timestamp", valutazione, prodotto_id, utente_id) VALUES (304, 'Brutto il prodotto, restituito dopo 5 giorni', '2024-02-06', 1, 5, 352);
-INSERT INTO public.recensione (id, descrizione, "timestamp", valutazione, prodotto_id, utente_id) VALUES (303, 'Non mi è piaciuto a livello di estetica ma è tutto sommato un buon prodotto', '2024-02-06', 3, 3, 352);
 
 
 --
@@ -148,7 +145,7 @@ SELECT pg_catalog.setval('public.tipologia_seq', 1, false);
 SELECT pg_catalog.setval('public.utente_seq', 451, true);
 
 
--- Completed on 2024-02-08 14:48:28
+-- Completed on 2024-02-08 16:48:15
 
 --
 -- PostgreSQL database dump complete

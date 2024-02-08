@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,6 +27,7 @@ public class Recensione {
 	@Max(value = 5)
 	private Integer valutazione;
 
+	@Column(name = "data")
 	private LocalDate timestamp;
 
 	@ManyToOne (cascade = CascadeType.REMOVE)
